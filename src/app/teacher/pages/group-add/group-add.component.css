@@ -1,0 +1,63 @@
+::ng-deep .dark-theme  mat-stepper{ background-color: var(--black); }
+::ng-deep .dark-theme .mat-step-header .mat-step-icon {
+    background-color: var(--dark);
+    color: var(--white);
+}
+::ng-deep .dark-theme .mat-step-header .mat-step-icon-selected {
+    background-color: var(--orange);
+    color: var(--black);
+}
+
+.dark-theme .btn-activities button:nth-child(1) svg{ stroke: var(--white); }
+.dark-theme .btn-activities button:nth-child(2) svg{ stroke: var(--orange); }
+
+body{ width: 100%; padding: 24px; min-height: 90dvh; }
+section{ width: 500px; }
+form, h2, span{ width: 100%; }
+span{ display: inline-flex; }
+
+.field-form, .input-form, .invalid-field{ width: 100%;}
+.field-form svg, .invalid-field svg{
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+.invalid-field svg{ stroke: var(--red); }
+.invalid-field label{ color: var(--red); }
+.invalid-field svg, .invalid-field label{
+    animation: headShake;
+    animation-duration: 1.5s;
+}
+
+.input-activities input:nth-child(1){ width: 80%; }
+.input-activities input:nth-child(2){ width: 15%; }
+
+.btn-units button:nth-child(1){ margin-right: 8px; }
+.btn-activities button{ background-color: transparent; padding: 0; margin: 0; }
+.btn-activities button:nth-child(1) svg{ stroke: var(--red); }
+.btn-activities button:nth-child(2) svg{ stroke: var(--blue-2); }
+.btn-options{ width: 100%; }
+
+::ng-deep mat-stepper {
+    max-width: 100%;
+    width: 100%;
+}
+::ng-deep .mat-step-header{ padding: 0 0 !important; }
+::ng-deep .mat-horizontal-content-container {
+    padding:0 !important;
+    width: 100%;
+}
+::ng-deep .mat-step-header .mat-step-icon {
+    background-color: var(--black);
+    color: var(--white);
+}
+::ng-deep .mat-step-header .mat-step-icon-selected {
+    background-color: var(--blue-2);
+    color: var(--white);
+}
+
+@media(min-width : 300px) and (max-width : 600px){
+    section{ width: 100%; }
+    .input-activities input:nth-child(1){ width: 70%; }
+    .input-activities input:nth-child(2){ width: 25%; }
+}

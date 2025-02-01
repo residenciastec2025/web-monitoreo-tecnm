@@ -1,0 +1,22 @@
+<body [ngClass]="darkTheme() ? 'dark-theme flex-center-center-column' : 'flex-center-center-column' ">
+    <section class="container">
+        <h2 class="subtittle mb-24"> Lista de alumnos </h2>
+
+        <span class="medium mb-24">
+            Selecciona una opcion para descargar la lista de alumnos
+        </span>
+
+        <select class="input-form mb-24" [(ngModel)]="selectedUnit" [ngModelOptions]="{standalone: true}">
+            @for (num of [].constructor(unitsCount).fill(1); track $index){
+                <option value="{{$index+1}}">Unidad {{$index+1}}</option>
+            }
+            <option value="100">Todas las unidades</option>
+        </select>
+        
+        <div class="flex-center-se-row btn-options">
+            <button class="btn-secondary small" (click)="closeDialog()"> Cancelar </button>
+            <button class="btn-primary small" [disabled]="!this.selectedUnit" (click)="downloadList()"> Descargar </button>
+        </div>
+
+    </section>
+</body>

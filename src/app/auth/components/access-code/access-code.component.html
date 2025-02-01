@@ -1,0 +1,25 @@
+<body [ngClass]="darkTheme() ? 'flex-center-center-column dark-theme' : 'flex-center-center-column' ">
+    <form class="flex-center-start-column" [formGroup]="accessForm">
+        <h2 class="tittle mb-24"> Codigo de acceso </h2>
+        <span class="medium mb-24"> 
+            Ingresa el codigo enviado a {{data.email}} para ingresar al sistema de calificaciones
+        </span>
+
+        <div [ngClass]="codeInvalid() ?  'flex-center-start-row invalid-field mb-24 '  : 'flex-center-start-row field-form mb-24'">
+            <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 19a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
+                <path d="M10.85 12.15 19 4"></path>
+                <path d="m18 5 2 2"></path>
+                <path d="m15 8 2 2"></path>
+            </svg>
+            <label class="medium"> Codigo </label>
+        </div>
+
+        <input type="text" class="input-form mb-24" formControlName="codigo" placeholder="Codigo de acceso">
+
+        <div class="flex-center-se-row  btn-options">
+            <button class="btn-secondary" (click)="closeDialog()"> Cancelar </button>
+            <button class="btn-primary" [disabled]="btnDisable()" (click)="validateForm()"> Enviar</button>
+        </div>
+    </form>
+</body>

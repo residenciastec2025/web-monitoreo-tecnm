@@ -1,0 +1,135 @@
+<body [ngClass]="darkTheme() ? 'dark-theme flex-center-center-column' : 'flex-center-center-column' ">
+    <section class="container flex-center-center-column">
+        <h2 class="tittle mb-24"> Grupo {{subject.claveMateria}}{{group.numeroGrupo}}</h2>
+
+        <span class="medium mb-24"> 
+            Información correspondiente al grupo 
+            de {{subject.nombreMateria}}
+            del periodo {{group.periodo}}.
+        </span>
+
+        <nav class="flex-center-end-row mb-24">
+            @if(students.length === 0){
+                <button class="btn-primary-icon flex-center-center-row" (click)="uploadList()"> 
+                    <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path>
+                        <path d="m7 9 5-5 5 5"></path>
+                        <path d="M12 4v12"></path>
+                    </svg>
+                    <p class="small">Subir lista</p>
+                </button>
+            }
+            @if(students.length != 0){
+                <button class="btn-primary-icon flex-center-center-row" (click)="downloadList()"> 
+                    <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path>
+                        <path d="m7 11 5 5 5-5"></path>
+                        <path d="M12 4v12"></path>
+                    </svg>
+                    <p class="small">Descargar lista</p>
+                </button>
+            }
+            @if(students.length != 0){
+                <button class="btn-primary-icon flex-center-center-row" (click)="redirectToEvaluationCapture()"> 
+                    <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 20h4L18.5 9.5a2.829 2.829 0 0 0-4-4L4 16v4Z"></path>
+                        <path d="m13.5 6.5 4 4"></path>
+                    </svg>
+                    <p class="small">Asignar calificaciones</p>
+                </button>
+            }
+            @if(group.promedioGeneral > 0){
+                <button class="btn-primary-icon flex-center-center-row" (click)="redirectToStatistics()"> 
+                    <svg width="67" height="67" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 3v9h9"></path>
+                        <path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"></path>
+                        </svg>
+                    <p class="small">Ver estadisticas</p>
+                </button>
+
+                <button class="btn-primary-icon flex-center-center-row" (click)="closeGroup()"> 
+                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17 11H7a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2Z"></path>
+                        <path d="M12 17a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"></path>
+                        <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+                    </svg>
+                    <p class="small">Cerrar grupo</p>
+                </button>
+            }
+        </nav>  
+
+        @defer(on timer(3s)){
+            @if(students.length!=0){
+                <div class="table-container">
+                    <table class="mb-24">
+                        <thead>
+                            <tr>
+                                <th rowspan="2" class="small size-small">No</th>
+                                <th rowspan="2" class="small size-large">Nombre</th>
+                                @for (unit of group.unidades; track $index){
+                                    <th [colSpan]="getActividadesLength($index)" class="small size-medium">Unidad {{$index+1}} </th>
+                                }
+                                <th rowspan="2" class="small size-small">Prom</th>
+                            </tr>
+    
+                            <tr>
+                                @for (unit of group.unidades; track unit; let i = $index;){
+                                    @for (activity of unit.actividades; track activity; let j = $index){
+                                        <th class="small size-medium"> {{activity.nombre}} {{activity.porcentaje}}% </th>
+                                    }
+                                    <th rowspan="2" class="small size-small">Prom</th>
+                                }
+                            </tr>
+                        </thead>
+                
+                        <tbody>
+                            @for (student of students; track $index){
+                                <tr>
+                                    <td class="small size-small">{{ 1 + $index}}</td>
+                                    <td class="small size-large">{{student?.nombre}}</td>
+                                    @for (scores of student.calificaciones; track scores; let k = $index;){
+                                        @for(score of scores.actividades; track score; let l = $index;){
+                                            @if(score.calificacionActividad != 0){
+                                                <td class="small size-small"> {{score.calificacionActividad}} </td>
+                                            }@else{
+                                                <td class="small size-small"> {{score.calificacionActividad}} </td>
+                                            }
+                                        }
+                                        @if(scores.promedioUnidad){
+                                            @if(scores.promedioUnidad < 70){
+                                                <td class="small size-small failed"> {{scores.promedioUnidad}} </td>
+                                            }@else{
+                                                <td class="small size-small average"> {{scores.promedioUnidad}} </td>
+                                            }
+                                        }@else{
+                                            <td class="small size-small failed"> {{scores.promedioUnidad}} </td>
+                                        }
+                                    }
+                                    @if(student.promedioFinal){
+                                        @if(student.promedioFinal < 70){
+                                            <td class="small size-small failed"> {{student.promedioFinal}} </td>
+                                        }@else{
+                                            <td class="small size-small average"> {{student.promedioFinal}} </td>
+                                        }
+                                    }@else{
+                                        <td class="small size-small failed"> {{student.promedioFinal}} </td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }@else{
+                <div class="flex-center-center-column empty">
+                    <span class="text"> La lista de alumnos no ha sido agregada aun. </span>
+                </div>
+            }
+        }@placeholder{
+            <div class="flex-center-center-column loader">
+                <span class="spinner mb-24"></span>
+                <span class="medium">Cargando información</span>
+            </div>
+        }
+
+    </section>
+</body>

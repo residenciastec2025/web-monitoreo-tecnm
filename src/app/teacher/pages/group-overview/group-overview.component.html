@@ -1,0 +1,49 @@
+<body [ngClass]="darkTheme() ? 'dark-theme flex-center-center-column' : 'flex-center-center-column' ">
+    <section class="container flex-center-center-column">
+        <h2 class="tittle mb-24"> Grupos </h2>
+
+        <span class="medium mb-24">
+            Información detallada sobre todos los grupos 
+            del periodo actual registrados en el sistema de calificaciones.
+        </span>
+
+        <nav class="flex-center-end-row mb-24">
+            <button class="btn-primary-icon flex-center-center-row" (click)="addGruop()"> 
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 5v14"></path>
+                    <path d="M5 12h14"></path>
+                </svg>
+                <p class="small">Agregar grupo</p>
+            </button>
+        </nav>
+
+        @defer(on timer(3s)){
+            @if(groups.length > 0){
+                <article>
+                    @for (group of groups; track group ){
+                        @for (subject of subjects; track subject){
+                            @if (group.materia === subject._id){
+                                <app-group-card
+                                    [id]="group._id"
+                                    [clave]="subject.claveMateria"
+                                    [materia]="subject.descripcionMateria"
+                                    [grupo]="group.numeroGrupo"
+                                />
+                            }
+                        }
+                    }
+                </article>
+            }@else{
+                <div class="flex-center-center-column empty">
+                    <span class="medium"> Por el momento, aún no has registrado grupos en el sistema de calificaciones. </span>
+                </div>
+            }
+        }@placeholder{
+            <div class="flex-center-center-column loader">
+                <span class="spinner mb-24"></span>
+                <span class="medium">Cargando información</span>
+            </div>
+        }
+
+    </section>
+</body>

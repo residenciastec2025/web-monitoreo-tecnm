@@ -1,0 +1,98 @@
+<body [ngClass]="darkTheme() ? 'dark-theme flex-center-center-column' : 'flex-center-center-column' ">
+    <section class="container flex-center-start-column">
+        <h2 class="tittle mb-24"> Historial de grupos impartidos </h2>
+
+        <span class="medium mb-24">
+            Listado de todos los grupos impartidos en periodos anteriores
+            registrados en el sistema de calificaciones.
+        </span>
+
+        @if(groups.length > 0){
+            <nav class="flex-center-end-row mb-24">
+
+                <div class="input-search">
+                    <input type="text" [(ngModel)]="searchTerm" (input)="onSearch()" placeholder="Buscar por materia o grupo">
+                    <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 17a7 7 0 1 0 0-14 7 7 0 0 0 0 14Z"></path>
+                        <path d="m21 21-6-6"></path>
+                    </svg>
+                </div>
+    
+                <button class="btn-primary-icon flex-center-center-row" (click)="downloadHistory()"> 
+                    <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path>
+                        <path d="m7 11 5 5 5-5"></path>
+                        <path d="M12 4v12"></path>
+                    </svg>
+                    <p class="small">Descargar datos</p>
+                </button>
+            </nav>
+        }
+
+        @defer(on timer(3s)){
+            @if(groups.length > 0){
+                <div class="table-container mb-24">
+                    <table>
+                        <thead>
+                            <th class="small size-small col-1">Grupo</th>
+                            <th class="small size-large col-2">Materia</th>
+                            <th class="small size-medium col-3">Periodo</th>
+                            <th class="small size-medium col-4">Aprob.</th>
+                            <th class="small size-medium col-5">Reprob.</th>
+                            <th class="small size-medium col-6">Deser.</th>
+                        </thead>
+                
+                        <tbody>
+                            @for(group of groups; track $index){
+                                @for(subject of subjects; track $index){
+                                    @if (group.materia === subject._id){
+                                        <tr>
+                                            <td class="small size-small col-1">{{subject?.claveMateria}}{{group?.numeroGrupo}}</td>
+                                            <td class="small size-large col-2">{{subject?.nombreMateria}}</td>
+                                            <td class="small size-medium col-3">{{group?.periodo}}</td>
+                                            <td class="small size-medium col-4"> {{group?.porcentajeAprobados}}% ({{group?.alumnosAprobados}}) </td>
+                                            <td class="small size-medium col-5"> {{group?.porcentajeReprobados}}% ({{group?.alumnosReprobados}}) </td>
+                                            <td class="small size-medium col-6"> {{group?.porcentajeDesertados}}% ({{group?.alumnosDesertados}}) </td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="flex-center-center-row pagination">
+                    <button class="btn-secondary" (click)="previousPage()" [disabled]="currentPage === 1"> ant </button>
+                    <div class="pag">
+                        @if(currentPage > 2){
+                            <button class="btn-secondary" (click)="goToPage(currentPage - 2)"> {{currentPage - 2}} </button>
+                        }
+                        @if(currentPage > 1){
+                            <button class="btn-secondary" (click)="goToPage(currentPage - 1)"> {{currentPage - 1}} </button>
+                        }
+
+                        <button class="btn-primary"> {{currentPage}} </button>
+
+                        @if((totalPages - currentPage ) >= 1){
+                            <button class="btn-secondary" (click)="goToPage(currentPage + 1)"> {{currentPage+1}} </button>
+                        }
+                        @if((totalPages - currentPage ) >= 2){
+                            <button class="btn-secondary" (click)="goToPage(currentPage + 2)"> {{currentPage+2}} </button>
+                        }
+                    </div>
+                    <button class="btn-secondary" (click)="nextPage()" [disabled]="currentPage === totalPages"> sig </button>
+                </div>
+            }@else{
+                <div class="flex-center-center-column empty">
+                    <span class="text"> Por el momento, aún no hay grupos cerrados registrados en el sistema. </span>
+                </div>
+            }
+        }@placeholder{
+            <div class="flex-center-center-column loader">
+                <span class="spinner mb-24"></span>
+                <span class="medium">Cargando información</span>
+            </div>
+        }
+
+    </section>
+</body>

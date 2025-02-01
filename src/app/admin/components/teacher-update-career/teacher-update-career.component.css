@@ -1,0 +1,17 @@
+body{
+    max-width: 300px;
+    width: auto;
+    background-color: var(--white);
+    padding: 24px;
+}
+article p{
+    text-align: center;
+}
+article svg{
+    width: 48px;
+    height: 48px;
+    stroke: var(--orange);
+    animation: bounceIn;
+    animation-duration: 1.5s;
+}
+.btn-options{ width: 100%; }

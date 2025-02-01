@@ -1,0 +1,17 @@
+<body>
+    <article class="flex-center-center-column">
+        <svg class="mb-24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"></path>
+            <path d="M12 8v4"></path>
+            <path d="M12 16h.01"></path>
+        </svg>
+        <p class="small mb-24"> 
+            El docente ya tiene una cuenta registrada en otra ingeniería.
+            ¿Desea otorgarle acceso como docente a esta carrera? {{data?.correo}}
+        </p>
+        <div class="flex-center-se-row btn-options">
+            <button class="btn-secondary small" (click)="closeDialog()"> Cancelar </button>
+            <button class="btn-primary small" (click)="updateTeacherCareer()" [disabled]="btnDisable()"> Aceptar </button>
+        </div>
+    </article>
+</body>

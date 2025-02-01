@@ -1,0 +1,111 @@
+<body [ngClass]="darkTheme() ? 'dark-theme flex-center-center-column' : 'flex-center-center-column' ">
+    <section class="container flex-center-center-column">
+        @defer(on timer(3s)){
+            @if(group.listaAlumnos != null){
+                <h2 class="tittle mb-24"> Estadisticas </h2>
+
+                <span class="medium mb-24">
+                    Información general sobre el aprovechamiento escolar de los {{groupStatistics.studentsTotal}} estudiantes 
+                    del grupo {{subject.nombreMateria}}
+                    del periodo {{group.periodo}}.
+                </span>
+
+                <nav class="flex-center-end-row mb-24">
+                    <button class="btn-primary-icon flex-center-center-row" (click)="redirectToGroup()"> 
+                        <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 9h11a4 4 0 1 1 0 8h-1"></path>
+                            <path d="M9 13 5 9l4-4"></path>
+                        </svg>
+                        <p class="small"> Volver al grupo </p>
+                    </button>
+                    <button class="btn-primary-icon flex-center-center-row "  (click)="verifyForm()">
+                        <i class="fa-solid fa-file-pdf"></i>
+                        <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path>
+                            
+                            <path d="m7 11 5 5 5-5"></path>
+                            <path d="M12 4v12"></path>
+                        </svg>
+                    
+                        <p class="small"> Descargar estadisticas </p>
+                    </button>
+                </nav>
+
+                <table class="mb-24">
+                    <thead>
+                        <th scope="row" class="small size-large">Unidad</th>
+                        <th class="small size-large">Aprobada</th>
+                        <th class="small size-large">Reprobada.</th>
+                        <th class="small size-large">Desertores.</th>
+                    </thead>
+                
+                    <tbody>
+                        @for (unit of groupStatistics?.units; track $index){
+                            <tr>
+                                <th class="small size-large"> Unidad {{ $index + 1 }} </th>
+                                <td class="small size-large"> {{ unit.aprobados }} </td>
+                                <td class="small size-large"> {{ unit.reprobados }} </td>
+                                <td class="small size-large"> {{ unit.desertores }} </td>
+                            </tr>
+                        }
+                        <tr>
+                            <th class="small size-large"> Final </th>
+                            <td class="small size-large"> {{ groupStatistics.final.aprobados }} </td>
+                            <td class="small size-large"> {{ groupStatistics.final.reprobados }} </td>
+                            <td class="small size-large"> {{ groupStatistics.final.desertores }} </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <article class="charts">
+                        <h2 class="tittle"> Graficas </h2>
+                        <div class="title-chart mb-24">
+                            <h3 class="medium">Gráfica 1.</h3>
+                            <p class="medium">Estado de alumnos por unidades</p>
+                        </div>
+                        <span class="medium mb-24">
+                            Representación gráfica de estudiantes aprobados, reprobados y
+                            desertores a lo largo del semestre.
+                        </span>
+                        <canvasjs-chart [options]="chartOptions1" (chartInstance)="getChartInstance1($event)">
+                        </canvasjs-chart>
+                    
+                        <div class="title-chart mb-24">
+                            <h3 class="medium">Gráfica 2.</h3>
+                            <p class="medium">Rango de promedios</p>
+                        </div>
+                        <span class="medium mb-24">
+                            Visualización de los promedios finales de los estudiantes divididos por
+                            rango de calificación.
+                        </span>
+                        
+                        <canvasjs-chart [options]="chartOptions2" (chartInstance)="getChartInstance2($event)">
+                        </canvasjs-chart>
+                    
+                        <div class="title-chart mb-24">
+                            <h3 class="medium">Gráfica 3.</h3>
+                            <p class="medium">Estado final de los alumnos</p>
+                        </div>
+                        <span class="medium mb-24">
+                            Representación gráfica de estudiantes aprobados, reprobados y
+                            desertores al finalizar el semestre.
+                        </span>
+                        
+                        <canvasjs-chart [options]="chartOptions3" (chartInstance)="getChartInstance3($event)">
+                        </canvasjs-chart>
+                </article>
+            }@else{
+                <div class="flex-center-center-column empty">
+                    <span class="text"> Por el momento, aún no hay suficientes datos para calcular estadisticas, intenta mas tarde. </span>
+                </div>
+            }
+
+        }@placeholder{
+            <div class="flex-center-center-column loader">
+                <span class="spinner mb-24"></span>
+                <span class="medium">Cargando información</span>
+            </div>
+        }
+
+    </section>
+</body>

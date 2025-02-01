@@ -1,0 +1,50 @@
+.dark-theme .forgot-password > span{ color: var(--orange); }
+.dark-theme .password button svg{ stroke: var(--orange); }
+
+body{
+    width: 100%;
+    min-height: calc(90dvh + 48px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+form{ width: 500px;}
+h2{ width: 100%; }
+.field-form, .input-form, .invalid-field{ width: 100%;}
+.field-form svg, .invalid-field svg{
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+.password{
+    width: 100%;
+    position: relative; 
+}
+.password input{ position: relative; }
+.password button{
+    position: absolute;
+    background-color: transparent;
+    right: 8px; 
+    top: 30%;
+    transform: translateY(-50%);
+}
+.password button svg{
+    stroke: var(--blue-2);
+}
+
+.forgot-password > span{ color: var(--blue-2); }
+.forgot-password > span:hover{ cursor: pointer; text-decoration: underline; }
+
+.invalid-field svg{ stroke: var(--red); }
+.invalid-field label{ color: var(--red); }
+.invalid-field svg, .invalid-field label{
+    animation: headShake;
+    animation-duration: 1.5s;
+}
+
+@media(min-width : 300px) and (max-width : 400px){ form{ width: 100%; } }
+@media(min-width : 401px) and (max-width : 600px){ form{ width: 90%; max-width: 400px; } }
+@media(min-width : 601px) and (max-width : 800px){ form{ width: 90%; max-width: 450px; } }

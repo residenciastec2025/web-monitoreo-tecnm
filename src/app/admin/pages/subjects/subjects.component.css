@@ -1,0 +1,92 @@
+.dark-theme article div span{ background-color: var(--orange); color: var(--black); }
+.dark-theme .spinner{ background-color: var(--orange); }
+
+body{ width: 100%; padding: 24px;}
+section{ width: 100%; }
+h2, span{ width: 100%; }
+
+nav{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: row;
+}
+nav select{
+    min-width: 300px;
+    width: auto;
+    max-width: 400px;
+    margin-right: 8px;
+}
+
+article{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+}
+article div{ display: inline-block; }
+article div span{
+    background-color: var(--blue);
+    color: var(--white);
+    width: 100%;
+    padding: 4px 8px;
+    font-weight: 300;
+    text-align: center;
+    display: inline-block;
+}
+article div:nth-child(1) span{ border-radius: 8px 0 0 0; }
+article div:nth-child(9) span{ border-radius: 0 8px 0 0; }
+
+.empty{
+    width: 100%;
+    height: 400px;
+}
+.empty span{ text-align: center; }
+
+.loader{
+    width: 100%;
+    height: 400px;
+}
+.loader .medium{ width: 100%; text-align: center; display: inline-block; }
+.spinner {
+    width: 50px;
+    padding: 8px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--blue-2);
+    --_m: 
+      conic-gradient(#0000 10%,#000),
+      linear-gradient(#000 0 0) content-box;
+    -webkit-mask: var(--_m);
+            mask: var(--_m);
+    -webkit-mask-composite: source-out;
+            mask-composite: subtract;
+    animation: l3 1s infinite linear;
+}
+@keyframes l3 {to{transform: rotate(1turn)}}
+
+@media(max-width : 450px){
+    nav{
+        align-items: flex-end;
+        flex-direction: column;
+    }
+    nav select{ margin-right: 0; margin-bottom: 24px; }    
+}
+@media(max-width : 600px){
+    nav select{
+        min-width: 200px;
+        width: auto;
+        max-width: 300px;
+    }    
+}
+
+@media(max-width : 1400px){
+    article{
+        width: 100%;
+        max-width: 100%;
+        overflow-x: scroll;
+        overscroll-behavior-x: contain;
+        scroll-snap-type: x proximity;
+    }
+}

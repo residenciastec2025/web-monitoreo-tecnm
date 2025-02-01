@@ -1,0 +1,41 @@
+<body [ngClass]="darkTheme() ? 'dark-theme flex-center-center-column' : 'flex-center-center-column' ">
+    <section class="container">
+        <h2 class="subtittle mb-24"> Lista </h2>
+
+        <span class="medium mb-24">
+            Sube el archivo que contenga la lista de estudiantes
+        </span>
+
+        <div [ngClass]="fileInvalid() ?  'flex-center-start-row invalid-field mb-24'  : 'flex-center-start-row field-form mb-24'">
+            <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
+                <path d="M9 17v-5"></path>
+                <path d="M12 17v-1"></path>
+                <path d="M15 17v-3"></path>
+            </svg>
+            <label class="medium"> Archivo(csv) </label>
+        </div>
+
+        <div class="dropzone flex-center-center-column mb-24">
+            <p class="small mb-16"> Selecciona o arrastra un archivo </p>
+            <div class="file-icon mb-16">
+                <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                    <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
+                    <path d="M9 9h1"></path>
+                    <path d="M9 13h6"></path>
+                    <path d="M9 17h6"></path>
+                </svg>
+            </div>
+            <input type="file" required name="uploaded-file" id="upload-file" (change)="onFileSelected($event)">
+            <span [ngClass]="fileSelected ? 'small message' : 'small message-error'">{{ fileSelected ? fileSelected.name : 'Archivo no seleccionado' }}</span>
+        </div>
+        
+        <div class="flex-center-se-row btn-options">
+            <button class="btn-secondary small" (click)="closeDialog()"> Cancelar </button>
+            <button class="btn-primary small" (click)="validateForm()"> Guardar </button>
+        </div>
+
+    </section>
+</body>

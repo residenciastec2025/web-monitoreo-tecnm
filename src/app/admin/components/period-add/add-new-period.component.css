@@ -1,0 +1,41 @@
+.dark-theme .field-form label{ color: var(--orange); }
+.dark-theme .field-form svg{ stroke: var(--orange); }
+.dark-theme .input-form::placeholder{ color: var(--white); }
+.dark-theme .input-form:-webkit-autofill,
+.dark-theme .input-form:-webkit-autofill:hover, 
+.dark-theme .input-form:-webkit-autofill:focus {
+    box-shadow: 0 0 0 30px var(--dark) inset !important;
+    -webkit-text-fill-color: var(--white);
+    color: var(--white);
+}
+
+body{
+    width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+h2, span, .btn-options{ width: 100%; }
+form{ border-radius: 0; }
+.field-form, .input-form, .invalid-field{ width: 100%;}
+.field-form label{ color: var(--blue-2); }
+.field-form svg{ stroke: var(--blue-2); }
+.field-form svg, .invalid-field svg{
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+.forgot-password > span{ color: var(--blue-2); }
+.forgot-password > span:hover{ cursor: pointer; text-decoration: underline; }
+
+.invalid-field svg{ stroke: var(--red); }
+.invalid-field label{ color: var(--red); }
+.invalid-field svg, .invalid-field label{
+    animation: headShake;
+    animation-duration: 1.5s;
+}
+
+@media(min-width : 300px) and (max-width : 500px){
+    body{ width: 100%; }
+}

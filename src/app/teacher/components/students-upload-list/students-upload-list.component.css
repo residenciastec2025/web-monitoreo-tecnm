@@ -1,0 +1,49 @@
+.dark-theme{ background-color: var(--black); }
+.dark-theme .dropzone{ border: 2px dashed var(--orange); }
+.dark-theme .dropzone svg{ stroke: var(--orange); }
+.dark-theme .dropzone .message{ color: var(--orange); }
+.dark-theme .dropzone .message-error{ color: var(--white); }
+
+body{width: 350px; }
+form{ width: 100%; border-radius: 0; }
+span{ display: inline-block; }
+.field-form, .input-form, .invalid-field{ width: 100%;}
+.field-form svg, .invalid-field svg{
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+.invalid-field svg{ stroke: var(--red); }
+.invalid-field label{ color: var(--red); }
+.invalid-field svg, .invalid-field label{
+    animation: headShake;
+    animation-duration: 1.5s;
+}
+
+.dropzone{
+    position: relative;
+    padding: 16px;
+    border-radius: 8px;
+    border: 2px dashed var(--blue-2);
+}
+.dropzone svg{
+    width: 64px;
+    height: 64px;
+    stroke: var(--blue-2);
+}
+.dropzone input{
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.dropzone .message{ color: var(--blue-2); }
+.dropzone .message-error{ color: var(--red); }
+.dropzone p, .dropzone span{ text-align: center; }
+.btn-options{ width: 100%; }
+
+@media(min-width : 300px) and (max-width : 500px){
+    body{ width: 100%; }
+}

@@ -1,0 +1,31 @@
+.dark-theme, .dark-theme article{ background-color: var(--black); }
+.dark-theme article{
+    box-shadow:
+    -2px -1px 20px var(--dark),
+    2px 1px 20px var(--dark);
+    color: var(--white);
+}
+.dark-theme article span{ color: var(--orange); }
+
+body{
+    width: 100%;
+    background-color: var(--white);
+}
+article{
+    min-height: 90px;
+    border-radius: 8px;
+    padding: 8px;
+    margin: 8px;
+    font-size: 14px;
+    background-color: var(--white);
+    box-shadow:
+    -1px -1px 5px #aeaec040,
+    1px 1px 5px #aeaec040;
+}
+article span{ color: var(--blue-2); }
+article p{ text-align: center; }
+
+article:hover{
+    cursor: pointer;
+    transform: scale(1.05);
+}

@@ -1,0 +1,14 @@
+.dark-theme{ background-color: var(--black); }
+.dark-theme .dropzone{ border: 2px dashed var(--orange); }
+.dark-theme .dropzone svg{ stroke: var(--orange); }
+.dark-theme .dropzone .message{ color: var(--orange); }
+.dark-theme .dropzone .message-error{ color: var(--white); }
+
+body{width: 350px; }
+section{ width: 100%; }
+span{ display: inline-block; }
+.btn-options{ width: 100%; }
+
+@media(min-width : 300px) and (max-width : 500px){
+    body{ width: 100%; }
+}

@@ -1,0 +1,84 @@
+<body [ngClass]="darkTheme() ? 'dark-theme flex-center-center-column' : 'flex-center-center-column' ">
+    <section class="container flex-center-center-column">
+        <h2 class="tittle mb-24"> Grupo {{subject.claveMateria}}{{group.numeroGrupo}}</h2>
+
+        <span class="medium mb-24"> 
+            Calificaciones del grupo 
+            de {{subject.nombreMateria}}
+            del periodo {{group.periodo}}. Los promedios de las unidades y el promedio final se califican
+            de forma automatica por el sistema en base al porcentaje de cada actividad asignado previamente. 
+        </span>
+
+        <nav class="flex-center-end-row mb-24">
+            <button class="btn-primary-icon flex-center-center-row" (click)="redirectToGroup()"> 
+                <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 9h11a4 4 0 1 1 0 8h-1"></path>
+                    <path d="M9 13 5 9l4-4"></path>
+                </svg>
+                <p class="small"> Volver al grupo </p>
+            </button>
+
+            <button class="btn-primary-icon flex-center-center-row" (click)="validateForm()"> 
+                <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="m5 12 5 5L20 7"></path>
+                </svg>
+                <p class="small">Guardar</p>
+            </button>
+        </nav>  
+
+        @defer(on timer(3s)){
+            @if(group){
+                <div class="table-container">
+                    <table class="mb-24">
+                        <thead>
+                            <tr>
+                                <th rowspan="2" class="small size-small">No</th>
+                                <th rowspan="2" class="small size-large">Nombre</th>
+                                @for (unit of group.unidades; track $index){
+                                    <th [colSpan]="getActividadesLength($index)" class="small size-medium">Unidad {{$index+1}} </th>
+                                }
+                            </tr>
+    
+                            <tr>
+                                @for (unit of group.unidades; track unit; let i = $index;){
+                                    @for (activity of unit.actividades; track activity; let j = $index){
+                                        <th class="small size-medium"> {{activity.nombre}} </th>
+                                    }
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (student of students; track student; let i = $index;) {
+                              <tr>
+                                <td class="small size-small">{{ i + 1 }}</td>
+                                <td class="small size-large">{{ student?.nombre }}</td>
+                                @for (scores of student.calificaciones; track scores; let j = $index) {
+                                  @for (score of scores.actividades; track score; let k = $index) {
+                                    <td>
+                                        <input type="text" class="input-evaluation small"
+                                        [ngModel]="getInputValue(i, j, k)"
+                                        (ngModelChange)="setInputValue($event, i, j, k)"
+                                        (input)="addData(i, j, k, getInputValue(i, j, k) )" 
+                                        >
+                                    </td>
+                                  }
+                                }
+                              </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }@else{
+                <div class="flex-center-center-column empty">
+                    <span class="text"> Por el momento, aún no hay docentes registrados en el sistema. </span>
+                </div>
+            }
+        }@placeholder{
+            <div class="flex-center-center-column loader">
+                <span class="spinner mb-24"></span>
+                <span class="medium">Cargando información</span>
+            </div>
+        }
+
+    </section>
+</body>

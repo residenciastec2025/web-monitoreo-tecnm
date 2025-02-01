@@ -1,0 +1,11 @@
+footer{
+    background-color: var(--blue);
+    padding: 8px;
+}
+img{
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    margin-right: 8px;
+}
+span{ color: var(--white); }

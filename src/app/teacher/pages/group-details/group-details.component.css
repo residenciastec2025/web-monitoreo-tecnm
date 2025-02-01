@@ -1,0 +1,85 @@
+.dark-theme .spinner{ background-color: var(--orange); }
+.dark-theme thead tr:nth-child(2) th{ border: 1px solid var(--dark); }
+.dark-theme table .average{ font-weight: normal; color: var(--orange); }
+.dark-theme table .failed{ font-weight: normal; }
+
+body{ width: 100%; padding: 24px;}
+section, h2, span, nav{ width: 100%; }
+nav button{ margin-left: 8px; }
+
+.student-list{
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+}
+thead tr:nth-child(2) th{
+    border: 1px solid var(--white);
+    border-radius: 0;
+}
+table .average{  color: var(--blue-2); }
+table .failed{  color: var(--red); }
+tr td:nth-child(2){ text-align: start; }
+tr:hover{ cursor: pointer; border: 1px solid var(--dark); }
+.size-small{
+    width: 80px;
+    max-width: 80px;
+}
+.size-medium{
+    min-width: 120px;
+    width: 120px;
+    max-width: 120px;
+}
+.size-large{
+    min-width: 200px;
+    width: 350px;
+    max-width: 350px;
+}
+
+.empty{
+    width: 100%;
+    height: 400px;
+}
+.empty span{ text-align: center; }
+.loader{
+    width: 100%;
+    height: 400px;
+}
+.loader .medium{ width: 100%; text-align: center; display: inline-block; }
+.spinner {
+    width: 50px;
+    padding: 8px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--blue-2);
+    --_m: 
+      conic-gradient(#0000 10%,#000),
+      linear-gradient(#000 0 0) content-box;
+    -webkit-mask: var(--_m);
+            mask: var(--_m);
+    -webkit-mask-composite: source-out;
+            mask-composite: subtract;
+    animation: l3 1s infinite linear;
+}
+@keyframes l3 {to{transform: rotate(1turn)}}
+
+@media(min-width : 300px) and (max-width : 549px){
+    nav{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(1, 1fr);
+        grid-column-gap: 24px;
+        grid-row-gap: 24px;
+    }
+}
+
+@media(min-width : 550px) and (max-width : 800px){
+    nav{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(1, 1fr);
+        grid-column-gap: 24px;
+        grid-row-gap: 24px;
+    }
+}

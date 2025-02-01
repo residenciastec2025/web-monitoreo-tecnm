@@ -1,0 +1,84 @@
+.dark-theme .spinner{ background-color: var(--orange); }
+
+.dark-theme thead tr:nth-child(2) th{ border: 1px solid var(--dark); }
+.dark-theme tbody tr{ background-color: var(--dark); border-bottom: 1px solid var(--white); } 
+.dark-theme tr td{ border-right: 1px solid var(--white); }
+.dark-theme tr td:nth-child(1){ border-left: 1px solid var(--white); }
+.dark-theme .input-evaluation{ background-color: var(--dark); color: var(--white);}
+
+.dark-theme tbody tr:nth-last-child(1) td:nth-child(1){ border-radius: 0 0 0 8px;}
+.dark-theme tbody tr:nth-last-child(1) td:nth-last-child(1){ border-radius: 0 0 8px 0;}
+
+
+body{ width: 100%; padding: 24px;}
+section, h2, span, nav{ width: 100%; }
+nav button{ margin-left: 8px; }
+
+.input-evaluation{
+    padding: 2px 4px;
+    border-radius: 4px;
+    border: none;
+    offset: none;
+    outline: none;
+    text-align: center;
+    width: 100%;
+}
+tbody tr{ background-color: #ffffff; border-bottom: 1px solid var(--dark); }
+tr td{ border-right: 1px solid var(--dark); }
+tr td:nth-child(1){ border-left: 1px solid var(--dark); }
+tr td:nth-child(2){ text-align: start; }
+thead tr:nth-child(2) th{
+    border: 1px solid var(--white);
+    border-radius: 0;
+}
+.size-small{
+    width: 80px;
+    max-width: 80px;
+}
+.size-medium{
+    min-width: 120px;
+    width: 120px;
+    max-width: 120px;
+}
+.size-large{
+    min-width: 300px;
+    width: 350px;
+    max-width: 350px;
+}
+
+.empty{
+    width: 100%;
+    height: 400px;
+}
+.empty span{ text-align: center; }
+.loader{
+    width: 100%;
+    height: 400px;
+}
+.loader .medium{ width: 100%; text-align: center; display: inline-block; }
+.spinner {
+    width: 50px;
+    padding: 8px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--blue-2);
+    --_m: 
+      conic-gradient(#0000 10%,#000),
+      linear-gradient(#000 0 0) content-box;
+    -webkit-mask: var(--_m);
+            mask: var(--_m);
+    -webkit-mask-composite: source-out;
+            mask-composite: subtract;
+    animation: l3 1s infinite linear;
+}
+@keyframes l3 {to{transform: rotate(1turn)}}
+
+@media(min-width : 300px) and (max-width : 400px){
+    nav{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(1, 1fr);
+        grid-column-gap: 24px;
+        grid-row-gap: 24px;
+    }
+}

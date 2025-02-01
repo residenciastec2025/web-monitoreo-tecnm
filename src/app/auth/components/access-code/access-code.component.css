@@ -1,0 +1,26 @@
+.dark-theme{ background-color: var(--black); }
+
+body{
+    width: 100%;
+    padding: 24px;
+}
+form{ width: 300px;}
+h2{ width: 100%; }
+.field-form, .input-form, .invalid-field{ width: 100%;}
+.field-form svg, .invalid-field svg{
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+.invalid-field svg{ stroke: var(--red); }
+.invalid-field label{ color: var(--red); }
+.invalid-field svg, .invalid-field label{
+    animation: headShake;
+    animation-duration: 1.5s;
+}
+
+.btn-options{ width: 100%; }
+
+@media(min-width : 300px) and (max-width : 400px){ form{ width: 100%; } }
+@media(min-width : 401px) and (max-width : 600px){ form{ width: 90%; max-width: 400px; } }
+@media(min-width : 601px) and (max-width : 800px){ form{ width: 90%; max-width: 450px; } }

@@ -1,0 +1,19 @@
+.dark-theme{ background-color: var(--black); }
+.dark-theme article svg{ stroke: var(--orange); }
+
+body{
+    max-width: 180px;
+    width: auto;
+    background-color: var(--white);
+    padding: 24px;
+}
+article p{
+    text-align: center;
+}
+article svg{
+    width: 48px;
+    height: 48px;
+    stroke: var(--blue-2);
+    animation: bounceIn;
+    animation-duration: 1.5s;
+}
