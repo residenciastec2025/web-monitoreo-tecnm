@@ -67,8 +67,8 @@ export class AuthService {
     return this.http.post(`${environment.api}/auth/access-code/validate`, body, options);
   }
 
-    // Cerrar sesion
-  logOutUser(): Observable<any>{
+  // Cerrar sesion
+  logOut(): Observable<any>{
       const options = { withCredentials : true };
       return this.http.post<any>(`${environment.api}/auth/logout`, {}, options);
   }

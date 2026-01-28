@@ -44,7 +44,7 @@ export class MenuComponent implements OnInit {
   ========================= */
 
   private checkAuthAndRole(): void {
-    this.auth.userLogged().subscribe({
+    this.auth.isAuthenticated().subscribe({
       next: (isLogged) => {
         this.isAuth.set(isLogged);
 
