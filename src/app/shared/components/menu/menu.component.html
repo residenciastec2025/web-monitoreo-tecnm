@@ -5,10 +5,6 @@
 
     <nav class="flex-center-sb-row">
 
-        <p style="color:red">
-  isAuth: {{ isAuth() }} | Admin: {{ isAdmin() }} | Teacher: {{ isTeacher() }}
-</p>
-
         @if (isAuth()) {
 
             @if (isTeacher()) {
