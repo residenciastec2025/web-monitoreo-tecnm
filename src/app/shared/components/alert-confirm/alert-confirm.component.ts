@@ -5,6 +5,8 @@ import { NgClass } from '@angular/common';
 import { GroupService } from '../../services/group/group.service';
 import { AlertsService } from '../../services/alerts/alerts.service';
 import { Router } from '@angular/router';
+import { PeriodService } from '../../services/period/period.service';
+import { SubjectService } from '../../services/subject/subject.service';
 
 @Component({
   selector: 'app-alert-confirm',
@@ -20,7 +22,9 @@ export class AlertConfirmComponent implements OnInit{
     @Inject(MAT_DIALOG_DATA) public data : any,
     private groupService : GroupService,
     private systemService : SystemService,
+    private periodService : PeriodService,
     private alertService : AlertsService,
+    private subjectService : SubjectService,
     private router : Router,
     private dialog : MatDialog,
   ){}
@@ -42,11 +46,37 @@ export class AlertConfirmComponent implements OnInit{
   confirm() : void{
     switch(this.data.reason){
       case 'closeGroup' : this.closeGroup(); break;
+      case 'deletePeriod' : this.deletePeriod(); break;
+      case 'deleteSubjects' : this.deleteSubjects(); break;
     }
   }
 
   closeGroup() : void{
     this.groupService.closeGroup(this.data.group).subscribe((data : any) => {
+      if(data.success === true){
+        this.alertService.successAlert(data.message);
+
+        setTimeout(() => {
+          window.location.reload();
+        },3000);
+      }
+    });
+  }
+
+  deletePeriod() : void{
+    this.periodService.deletePeriod(this.data.group).subscribe((data : any) => {
+      if(data.success === true){
+        this.alertService.successAlert(data.message);
+
+        setTimeout(() => {
+          window.location.reload();
+        },3000);
+      }
+    });
+  }
+
+  deleteSubjects() : void{
+    this.subjectService.deleteSubjectId(this.data.group).subscribe((data : any) => {
       if(data.success === true){
         this.alertService.successAlert(data.message);
 

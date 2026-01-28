@@ -7,6 +7,7 @@ import { period } from '../../../shared/interfaces/period.interfaces';
 import { AddNewPeriodComponent } from '../../components/period-add/add-new-period.component';
 import { SystemService } from '../../../shared/services/system/system.service';
 import { AuthService } from '../../../auth/services/auth/auth.service';
+import { AlertsService } from '../../../shared/services/alerts/alerts.service';
 
 
 @Component({
@@ -30,6 +31,7 @@ export class PeriodsComponent implements OnInit{
   constructor(
     private authService : AuthService,
     private periodService : PeriodService,
+    private alertService : AlertsService,
     private systemService : SystemService,
     private dialog : MatDialog,
   ){}
@@ -101,6 +103,14 @@ export class PeriodsComponent implements OnInit{
       this.currentPage = page;
       this.getDataPeriods();
     }
+  }
+
+  deletePeriod(idPeriod : string) : void{
+    this.alertService.confirmCloseGroup(
+      '¿Deseas eliminar este periodo?', 
+      idPeriod, 
+      'deletePeriod', 
+      10000);
   }
 
 }

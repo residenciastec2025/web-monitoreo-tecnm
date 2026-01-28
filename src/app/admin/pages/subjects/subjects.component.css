@@ -2,7 +2,7 @@
 .dark-theme .spinner{ background-color: var(--orange); }
 
 body{ width: 100%; padding: 24px;}
-section{ width: 100%; }
+section{ width: 100%; position: relative; }
 h2, span{ width: 100%; }
 
 nav{
@@ -13,10 +13,14 @@ nav{
     flex-direction: row;
 }
 nav select{
-    min-width: 300px;
+    min-width: auto;
     width: auto;
     max-width: 400px;
     margin-right: 8px;
+}
+nav button:nth-child(3){
+    background-color: red;
+    margin-left: 8px;
 }
 
 article{
@@ -25,7 +29,10 @@ article{
     grid-template-columns: repeat(9, 1fr);
     grid-template-rows: repeat(1, 1fr);
 }
-article div{ display: inline-block; }
+article div{ 
+    display: inline-block; 
+    min-width: 150px; 
+}
 article div span{
     background-color: var(--blue);
     color: var(--white);
@@ -66,19 +73,43 @@ article div:nth-child(9) span{ border-radius: 0 8px 0 0; }
 }
 @keyframes l3 {to{transform: rotate(1turn)}}
 
-@media(max-width : 450px){
+@media(max-width : 500px){
     nav{
         align-items: flex-end;
         flex-direction: column;
+        width: 100%;
     }
-    nav select{ margin-right: 0; margin-bottom: 24px; }    
-}
-@media(max-width : 600px){
-    nav select{
-        min-width: 200px;
-        width: auto;
-        max-width: 300px;
+    nav .select-filter{ 
+        margin-right: 0; 
+        margin-bottom: 12px; 
+        min-width: 100%;
+        width: 100%;
+        max-width: 100%;
     }    
+    nav button{
+        width: 100%;
+    }
+    nav button:nth-child(2){ margin-bottom: 12px; }
+}
+
+@media(min-width : 501px) and (max-width : 630px){
+    nav{
+        align-items: flex-end;
+        flex-direction: column;
+        width: 100%;
+    }
+    nav .select-filter{ 
+        margin-right: 0; 
+        margin-bottom: 12px; 
+        min-width: 100%;
+        width: 100%;
+        max-width: 100%;
+    } 
+    nav button:nth-child(2){ 
+        position: absolute;
+        left: 24px;
+
+    }
 }
 
 @media(max-width : 1400px){

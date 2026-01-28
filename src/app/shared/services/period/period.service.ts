@@ -36,4 +36,9 @@ export class PeriodService {
     return this.http.get(`${environment.api}/period/period-export/pdf`, {responseType : 'blob', withCredentials : true});
   }
 
+  deletePeriod(id : string): Observable<any>{
+    const options = { withCredentials : true };
+    return this.http.delete<any>(`${environment.api}/period/period-delete/${id}`, options);
+  }
+
 }

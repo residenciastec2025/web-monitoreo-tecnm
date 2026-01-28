@@ -35,5 +35,10 @@ export class SubjectService {
     const options = { withCredentials : true };
     return this.http.get<subject>(`${environment.api}/subjects/subjects-by-careers-and-period/${period}`, options);
   }
+
+  deleteSubjectId(id : string) : Observable<any>{
+    const options = { withCredentials : true };
+    return this.http.delete<any>(`${environment.api}/subjects/subjects-delete/${id}`, options);
+  }
   
 }

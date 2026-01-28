@@ -11,22 +11,38 @@
         </span>
 
         <nav class="mb-24">
-            <select class="select-filter" [(ngModel)]="selectedSubjectId" (ngModelChange)="getSubjects(selectedSubjectId)">
-                <option value="null" disabled selected> Selecciona una opcion </option>
-                @for (subject of subjectKeys; track $index){
-                    <option value="{{subject?._id}}"> {{subject?.claveReticula}} </option>
-                }@empty{
-                    <option value="0" disabled> Aun no hay reticulas </option>
+            <select
+                class="select-filter"
+                [(ngModel)]="selectedSubjectId"
+                (ngModelChange)="getSubjects(selectedSubjectId)"
+                >
+
+                @for (subject of subjectKeys; track subject._id) {
+                    <option [value]="subject._id">
+                    {{ subject.claveReticula }}
+                    </option>
                 }
             </select>
 
+
             <button class="btn-primary-icon flex-center-center-row" (click)="uploadSubjects()"> 
-                <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path>
                     <path d="m7 9 5-5 5 5"></path>
                     <path d="M12 4v12"></path>
                 </svg>
                 <p class="small"> Subir reticula </p>
+            </button>
+
+            <button class="btn-primary-icon flex-center-center-row" (click)="deleteSubject(selectedSubjectId)"> 
+                <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 7h16"></path>
+                    <path d="M10 11v6"></path>
+                    <path d="M14 11v6"></path>
+                    <path d="m5 7 1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12"></path>
+                    <path d="M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"></path>
+                </svg>
+                <p class="small"> Eliminar reticula </p>
             </button>
         </nav>
 

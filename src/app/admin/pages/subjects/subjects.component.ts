@@ -8,6 +8,7 @@ import { SubjectCardComponent } from "../../components/subject-card/subject-card
 import { SubjectsUploadFileComponent } from '../../components/subjects-upload-file/subjects-upload-file.component';
 import { SystemService } from '../../../shared/services/system/system.service';
 import { FormsModule } from '@angular/forms';
+import { AlertsService } from '../../../shared/services/alerts/alerts.service';
 
 @Component({
     selector: 'app-subjects',
@@ -27,6 +28,7 @@ export class SubjectsComponent implements OnInit{
   constructor(
     private subjectService : SubjectService,
     private systemService : SystemService,
+    private alertService : AlertsService,
     private dialog : MatDialog
   ){}
 
@@ -54,12 +56,22 @@ export class SubjectsComponent implements OnInit{
     });
   }
   
-  getSubjectsKey(){
-    this.subjectService.getSubjectsKey().subscribe((data : any) => {
-      if(data.success === true){
+  getSubjectsKey() {
+    this.subjectService.getSubjectsKey().subscribe((data: any) => {
+      if (data.success === true && data.subjects.length > 0) {
         this.subjectKeys = data.subjects;
+        this.selectedSubjectId = this.subjectKeys[0]._id;
+        this.getSubjects(this.selectedSubjectId);
       }
     });
+  }
+
+  deleteSubject(id : string){
+    this.alertService.confirmCloseGroup(
+      '¿Deseas eliminar esta reticula?', 
+      id, 
+      'deleteSubjects', 
+      10000);
   }
 
   uploadSubjects(){
