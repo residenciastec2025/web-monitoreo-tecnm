@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { environment } from '../../../../environments/environment.development';
 import { admin } from '../../../shared/interfaces/admin.interfaces';
@@ -11,6 +12,7 @@ import { teacher } from '../../../shared/interfaces/teacher.interfaces';
 })
 export class AuthService {
   private http = inject(HttpClient);
+  private router = inject(Router);
 
   login(body : any){
     const options = { withCredentials : true };
@@ -68,8 +70,21 @@ export class AuthService {
   }
 
   // Cerrar sesion
-  logOut(): Observable<any>{
-      const options = { withCredentials : true };
-      return this.http.post<any>(`${environment.api}/auth/logout`, {}, options);
+  logOut() {
+    const options = { withCredentials: true };
+
+    this.http.post(`${environment.api}/auth/logout`, {}, options)
+      .subscribe({
+        next: () => {
+          this.router.navigate(['/iniciar-sesion']).then(() => {
+            window.location.reload();
+          });
+        },
+        error: () => {
+          this.router.navigate(['/iniciar-sesion']).then(() => {
+            window.location.reload();
+          });
+        }
+      });
   }
 }
