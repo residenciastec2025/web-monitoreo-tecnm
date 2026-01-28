@@ -11,7 +11,6 @@ import { SystemService } from '../../services/system/system.service';
   styleUrl: './menu.component.css'
 })
 export class MenuComponent implements OnInit {
-
   isAuth = signal(false);
   isAdmin = signal(false);
   isTeacher = signal(false);
@@ -22,37 +21,32 @@ export class MenuComponent implements OnInit {
   private systemService = inject(SystemService);
 
   ngOnInit(): void {
-    this.getPreferences();
+    this.loadTheme();
     this.checkAuthAndRole();
   }
 
-  /* =========================
-     THEME
-  ========================= */
-
-  getPreferences() {
+  private loadTheme(): void {
     this.darkTheme.set(this.systemService.getThemeState());
   }
 
-  toggleTheme() {
+  toggleTheme(): void {
     this.systemService.toggleTheme();
     this.darkTheme.set(this.systemService.getThemeState());
   }
 
-  /* =========================
-     AUTH + ROLE
-  ========================= */
-
   private checkAuthAndRole(): void {
+    // 🔴 Limpia TODO antes de empezar
+    this.resetRoles();
+
     this.auth.isAuthenticated().subscribe({
       next: (isLogged) => {
-        this.isAuth.set(isLogged);
-
-        if (isLogged) {
-          this.loadUserRole();
-        } else {
+        if (!isLogged) {
           this.resetRoles();
+          return;
         }
+
+        this.isAuth.set(true);
+        this.loadUserRole();
       },
       error: () => {
         this.resetRoles();
@@ -63,15 +57,18 @@ export class MenuComponent implements OnInit {
   private loadUserRole(): void {
     this.auth.userAccount().subscribe({
       next: (account) => {
-        this.resetRoles();
+        this.isAdmin.set(account === 'Administrador');
+        this.isTeacher.set(account === 'Docente');
 
-        if (account === 'Administrador') {
-          this.isAdmin.set(true);
-        } else if (account === 'Docente') {
-          this.isTeacher.set(true);
-        }
+        // DEBUG opcional
+        console.log(
+          'isAuth:', this.isAuth(),
+          '| Admin:', this.isAdmin(),
+          '| Teacher:', this.isTeacher()
+        );
       },
       error: () => {
+        this.resetRoles();
         this.logOut();
       }
     });
@@ -82,10 +79,6 @@ export class MenuComponent implements OnInit {
     this.isAdmin.set(false);
     this.isTeacher.set(false);
   }
-
-  /* =========================
-     LOGOUT
-  ========================= */
 
   logOut(): void {
     this.auth.logOut();
