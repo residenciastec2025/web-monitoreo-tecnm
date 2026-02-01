@@ -1,0 +1,91 @@
+<body [ngClass]="darkTheme() ? 'dark-theme flex-center-center-column' : 'flex-center-center-column' ">
+    <section class="container flex-center-center-column">
+        <h2 class="tittle mb-24"> Administradores </h2>
+
+        <span class="medium mb-24">
+            Información detallada sobre todos los administradores registrados en el sistema.
+        </span>
+
+        <nav class="mb-24">
+            <div class="input-search">
+                <input type="text" [(ngModel)]="searchTerm" (input)="onSearch()" placeholder="Buscar por nombre o correo">
+                <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 17a7 7 0 1 0 0-14 7 7 0 0 0 0 14Z"></path>
+                    <path d="m21 21-6-6"></path>
+                </svg>
+            </div>
+            
+            <button class="btn-primary-icon flex-center-center-row" (click)="registerAdmin()"> 
+                <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <path d="M8.5 3a4 4 0 1 0 0 8 4 4 0 1 0 0-8z"></path>
+                    <path d="M20 8v6"></path>
+                    <path d="M23 11h-6"></path>
+                </svg>
+                <p class="small">Registrar administrador</p>
+            </button>
+
+            <button class="btn-primary-icon flex-center-center-row" (click)="downloadAdmins()"> 
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path>
+                    <path d="m7 11 5 5 5-5"></path>
+                    <path d="M12 4v12"></path>
+                </svg>
+                <p class="small">Descargar lista</p>
+            </button>
+        </nav>
+
+        @defer(on timer(3s)){
+            <div class="table-container mb-24">
+                <table>
+                    <thead>
+                        <th class="small size-small col-1">No</th>
+                        <th class="small size-large col-2">Administrador</th>
+                        <th class="small size-large col-3">Correo</th>
+                        <th class="small size-large col-4">Registro</th>
+                        <th class="small size-large col-4">Opciones</th>
+                    </thead>
+            
+                    <tbody>
+                        @for(admin of admins; track $index){
+                            <tr>
+                                <td class="small size-small col-1">{{(currentPage - 1) * pageSize + $index + 1}}</td>
+                                <td class="small size-large col-2">{{admin?.nombre}}</td>
+                                <td class="small size-large col-3">{{admin?.correo}}</td>
+                                <td class="small size-large col-4">{{admin?.fechaRegistro}}</td>
+                                <td class="small size-large col-4"> 
+                                    <button class="btn-secondary" (click)="deleteAdmin(admin?._id || '')"> Eliminar </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="flex-center-center-row pagination">
+                <button class="btn-secondary" (click)="previousPage()" [disabled]="currentPage === 1"> ant </button>
+                <div class="pag">
+                    @if(currentPage > 2){
+                        <button class="btn-secondary" (click)="goToPage(currentPage - 2)"> {{currentPage - 2}} </button>
+                    }
+                    @if(currentPage > 1){
+                        <button class="btn-secondary" (click)="goToPage(currentPage - 1)"> {{currentPage - 1}} </button>
+                    }
+                    <button class="btn-primary"> {{currentPage}} </button>
+                    @if((totalPages - currentPage ) >= 1){
+                        <button class="btn-secondary" (click)="goToPage(currentPage + 1)"> {{currentPage+1}} </button>
+                    }
+                    @if((totalPages - currentPage ) >= 2){
+                        <button class="btn-secondary" (click)="goToPage(currentPage + 2)"> {{currentPage+2}} </button>
+                    }
+                </div>
+                <button class="btn-secondary" (click)="nextPage()" [disabled]="currentPage === totalPages"> sig </button>
+            </div>
+        }@placeholder{
+            <div class="flex-center-center-column loader">
+                <span class="spinner mb-24"></span>
+                <span class="medium">Cargando información</span>
+            </div>
+        }
+
+    </section>
+</body>
